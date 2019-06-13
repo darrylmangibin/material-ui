@@ -38,12 +38,28 @@ class App extends React.Component {
     })
   }
 
+  handleExerciseCreate = (exercise) => {
+    this.setState(prevState => {
+      return {
+        exercises: [
+          ...prevState.exercises,
+          exercise
+        ]
+      }
+    })
+    console.log(this.state.exercises)
+  }
+
+
   render() {
     const exercises = this.getExerciseByMuscles();
     const { category, exercise } = this.state;
     return (
       <React.Fragment>
-        <Header />
+        <Header 
+          muscles={muscles}
+          onExerciseCreate={this.handleExerciseCreate}
+        />
 
         <Exercises 
           exercise={exercise}

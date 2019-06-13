@@ -35,7 +35,7 @@ const Exercises = ({
                   {exercises.map(({ title, id }) => {
                     return (
                       <ListItem key={title} button
-                        onCLick={() => onSelect(id)}
+                        onClick={() => onSelect(id)}
                       >
                         <ListItemText 
                           primary={title} 
