@@ -14,13 +14,21 @@ class App extends React.Component {
   }
 
   getExerciseByMuscles = () => {
+    const initialExercises = muscles.reduce((exercises, category) => {
+      return {
+        ...exercises,
+        [category]: []
+      }
+    }, {})
+
+
     return Object.entries(
       this.state.exercises.reduce((exercises, exercise) => {
         const { muscles } = exercise
         exercises[muscles] = exercises[muscles] ? [...exercises[muscles], exercise] : [exercise]
 
         return exercises;
-      }, {})
+      }, initialExercises)
     )
   }
 
@@ -47,7 +55,16 @@ class App extends React.Component {
         ]
       }
     })
-    console.log(this.state.exercises)
+  }
+
+  handleExerciseDelete = (id) => {
+    this.setState(prevState => {
+      return {
+        exercises: prevState.exercises.filter((exercise) => {
+          return exercise.id !== id
+        })
+      }
+    })
   }
 
 
@@ -66,6 +83,7 @@ class App extends React.Component {
           exercises={exercises}
           category={category}
           onSelect={this.handleExerciseSelected}
+          onDelete={this.handleExerciseDelete}
         />
 
         <Footer 
